@@ -1,5 +1,5 @@
 # ============================================
-# ||  🔦  BUILD SYSTEM v1.5 (Cub3D)         ||
+# ||  \U0001F526 BUILD SYSTEM v1.6 (Cub3D) ||
 # ============================================
 # ||  Project: Cub3D                       ||
 # ||  Program: cub3D                       ||
@@ -7,7 +7,7 @@
 # ||  Date: 2025                           ||
 # ============================================
 
-# Colors
+# Colors for Styling
 BLACK    = \033[1;30m
 RED      = \033[1;31m
 GREEN    = \033[1;32m
@@ -18,13 +18,12 @@ CYAN     = \033[1;36m
 WHITE    = \033[1;37m
 NC       = \033[0m  # No Color
 
-# Compiler, Removal Utility and Flags
+# Compiler, Removal Utility, and Flags
 CC       = cc
-CFLAGS   = -Wall -Wextra -Werror
+CFLAGS   = -Wall -Wextra -Werror -O3 -Iincludes -Imlx_linux  # Added -Imlx_linux
 RM       = rm -f
 
 # MiniLibX and Linux Libraries
-# For Linux (using the MLX from mlx_linux):
 MLXFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lz
 LDFLAGS  = $(MLXFLAGS) -lm
 
@@ -34,6 +33,12 @@ NAME     = cub3D
 # Directories
 SRC_DIR  = src
 OBJ_DIR  = obj
+INC_DIR  = includes
+
+# Future-Proofing: Additional Directories (Empty Now, Can be Extended)
+TEXTURES_DIR = textures
+SOURCES_DIR  = sources
+MAPS_DIR     = maps
 
 # Source Files - all .c files in the src directory
 SRCS     = $(wildcard $(SRC_DIR)/*.c)
@@ -58,16 +63,20 @@ banner:
 	@echo $(SEP_LINE)
 
 # Linking Target Executable
-$(NAME): $(OBJS)
+$(NAME): mlx_linux/.configured $(OBJS)
 	@echo "$(BLUE)[ Linking Objects... ]$(NC)"
 	$(CC) $(OBJS) $(LDFLAGS) -o $@ && \
 		echo $(SUCCESS) || echo $(FAIL_MSG)
 
+# Check and configure mlx_linux only if needed (stamp file-based)
+mlx_linux/.configured:
+	@echo "$(BLUE)[ Running mlx_linux ./configure... ]$(NC)"
+	@cd mlx_linux && ./configure && touch .configured
+
 # Compile Source Files
-# This rule compiles each .c file from src/ into a corresponding .o file in obj/
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@echo "$(YELLOW)[ Compiling: $< ]$(NC)"
-	$(CC) $(CFLAGS) -Imlx_linux -O3 -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 	@echo "$(GREEN)[ Object Created: $@ ]$(NC)"
 
 # Ensure the object directory exists
@@ -90,7 +99,6 @@ fclean: clean
 re: fclean all
 
 # Bonus target: compiles with bonus features enabled.
-# (This adds a -DBONUS flag so that your code may conditionally compile bonus code.)
 bonus: CFLAGS += -DBONUS
 bonus: re
 
