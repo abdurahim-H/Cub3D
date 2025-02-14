@@ -36,6 +36,11 @@ typedef struct s_rgb
 	int b;
 }	t_rgb;
 
+typedef struct s_header
+{
+	size_t	size;
+}	t_header;
+
 // general
 int		ft_strcmp(const char *s1, const char *s2);
 int		has_cub_extension(char *filename);
@@ -58,6 +63,7 @@ int		is_map_line(char *line);
 char	**collect_map_lines(int fd, int *map_count);
 void	print_map(char **map, int map_count);
 void	process_config(int fd, t_config *cfg);
+void	calculate_map_dimensions(char **map, int map_count);
 
 // get_next_line
 char	*ft_getline(int fd);
@@ -75,6 +81,7 @@ char	*ft_strsub(const char *s, unsigned int start, size_t len);
 char	*ft_getline(int fd);
 char	*cleanup_and_return_null(char **ptr);
 int		ft_atoi(const char *str);
+void	*ft_realloc(void *ptr, size_t new_size);
 
 
 #endif

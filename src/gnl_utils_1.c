@@ -18,45 +18,6 @@ char	*cleanup_and_return_null(char **ptr)
 	return (NULL);
 }
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	size_t				i;
-	unsigned char		*d;
-	const unsigned char	*s;
-
-	if (!dst && !src)
-		return (NULL);
-	d = (unsigned char *)dst;
-	s = (const unsigned char *)src;
-	i = 0;
-	while (i < n)
-	{
-		d[i] = s[i];
-		i++;
-	}
-	return (dst);
-}
-
-void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
-{
-	void	*new_ptr;
-	size_t	copy_size;
-
-	new_ptr = malloc(new_size);
-	if (!new_ptr)
-		return (NULL);
-	if (ptr)
-	{
-		if (old_size < new_size)
-			copy_size = old_size;
-		else
-			copy_size = new_size;
-		ft_memcpy(new_ptr, ptr, copy_size);
-		free(ptr);
-	}
-	return (new_ptr);
-}
-
 int	fill_leftover(int fd, char **leftover_ptr)
 {
 	char	buffer[BUFFER_SIZE + 1];

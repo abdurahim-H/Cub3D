@@ -15,7 +15,7 @@ int	append_line_to_map(char ***map, int count, char *line)
 {
 	char	**new_map;
 
-	new_map = realloc(*map, sizeof(char *) * (count + 1));
+	new_map = ft_realloc(*map, sizeof(char *) * (count + 1));
 	if (new_map == NULL)
 		return (-1);
 	*map = new_map;
