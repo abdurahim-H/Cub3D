@@ -28,7 +28,13 @@ typedef struct s_config
 	int		ceiling_b;
 	char	**map;
 }	t_config;
- 
+
+typedef struct s_rgb
+{
+	int r;
+	int g;
+	int b;
+}	t_rgb;
 
 // general
 int		ft_strcmp(const char *s1, const char *s2);
@@ -36,6 +42,18 @@ int		has_cub_extension(char *filename);
 int		is_save(char *s_argument);
 int		check_arg(int argc, char **argv);
 void	init_config(t_config *cfg);
+void	parse_line(char *line, t_config *cfg);
+void	parse_resolution(char *line, t_config *cfg);
+void	parse_north_texture(char *line, t_config *cfg);
+void	parse_south_texture(char *line, t_config *cfg);
+void	parse_west_texture(char *line, t_config *cfg);
+void	parse_east_texture(char *line, t_config *cfg);
+void	parse_sprite_texture(char *line, t_config *cfg);
+void	parse_floor_texture(char *line, t_config *cfg);
+t_rgb	parse_color(char *line, char prefix);
+void	parse_floor_color(char *line, t_config *cfg);
+void	parse_ceiling_color(char *line, t_config *cfg);
+void	detect_type(char *line, t_config *cfg);
 
 // get_next_line
 char	*ft_getline(int fd);
@@ -52,6 +70,7 @@ char	*ft_strdup(const char *s);
 char	*ft_strsub(const char *s, unsigned int start, size_t len);
 char	*ft_getline(int fd);
 char	*cleanup_and_return_null(char **ptr);
+int		ft_atoi(const char *str);
 
 
 #endif

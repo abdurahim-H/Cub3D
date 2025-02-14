@@ -20,11 +20,11 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	init_config(&config);
-	// while ((line = ft_getline(fd)) != NULL)
-	// {
-	// 	printf("%s", line);
-	// 	free(line);
-	// }
+	while ((line = ft_getline(fd)) != NULL)
+	{
+		parse_line(line, &config);
+		free(line);
+	}
 
 	close(fd);
 	return (0);
