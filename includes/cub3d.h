@@ -54,6 +54,10 @@ t_rgb	parse_color(char *line, char prefix);
 void	parse_floor_color(char *line, t_config *cfg);
 void	parse_ceiling_color(char *line, t_config *cfg);
 void	detect_type(char *line, t_config *cfg);
+int		is_map_line(char *line);
+char	**collect_map_lines(int fd, int *map_count);
+void	print_map(char **map, int map_count);
+void	process_config(int fd, t_config *cfg);
 
 // get_next_line
 char	*ft_getline(int fd);
