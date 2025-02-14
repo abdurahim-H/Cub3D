@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include "cub3d.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	int			fd;
 	char		*line;
@@ -12,7 +12,6 @@ int main(int argc, char **argv)
 
 	if (check_arg(argc, argv) != 0)
 		return (1);
-	
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
@@ -20,12 +19,13 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	init_config(&config);
-	while ((line = ft_getline(fd)) != NULL)
+	line = ft_getline(fd);
+	while (line != NULL)
 	{
 		parse_line(line, &config);
 		free(line);
+		line = ft_getline(fd);
 	}
-
 	close(fd);
 	return (0);
 }
