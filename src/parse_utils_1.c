@@ -1,5 +1,44 @@
 #include "cub3d.h"
 
+static int	parse_int_component(const char **p_ptr)
+{
+	int			value;
+	const char	*p;
+
+	p = *p_ptr;
+	while (*p == ' ' || *p == '\t')
+		p++;
+	value = ft_atoi(p);
+	while (*p >= '0' && *p <= '9')
+		p++;
+	if (*p == ',')
+		p++;
+	while (*p == ' ' || *p == '\t')
+		p++;
+	*p_ptr = p;
+	return (value);
+}
+
+t_rgb	parse_color(char *line, char prefix)
+{
+	t_rgb	color;
+	char	*ptr;
+
+	color.r = -1;
+	color.g = -1;
+	color.b = -1;
+	ptr = line;
+	if (*ptr != prefix)
+		return (color);
+	ptr++;
+	while (*ptr == ' ' || *ptr == '\t')
+		ptr++;
+	color.r = parse_int_component((const char **)&ptr);
+	color.g = parse_int_component((const char **)&ptr);
+	color.b = parse_int_component((const char **)&ptr);
+	return (color);
+}
+
 void	parse_sprite_texture(char *line, t_config *cfg)
 {
 	char	*ptr;
@@ -12,34 +51,48 @@ void	parse_sprite_texture(char *line, t_config *cfg)
 	printf("Parsed Sprite texture: %s\n", cfg->tex_s);
 }
 
-t_rgb	parse_color(char *line, char prefix)
-{
-	t_rgb	color;
-	char	*ptr;
+// int	skip_whitespace(char *ptr)
+// {
+// 	int	i;
 
-	ptr = line;
-	if (*ptr != prefix)
-		return (color);
-	ptr++;
-	while (*ptr == ' ' || *ptr == '\t')
-		ptr++;
-	color.r = ft_atoi(ptr);
-	while (*ptr >= '0' && *ptr <= '9')
-		ptr++;
-	if (*ptr == ',')
-		ptr++;
-	while (*ptr == ' ' || *ptr == '\t')
-		ptr++;
-	color.g = ft_atoi(ptr);
-	while (*ptr >= '0' && *ptr <= '9')
-		ptr++;
-	if (*ptr == ',')
-		ptr++;
-	while (*ptr == ' ' || *ptr == '\t')
-		ptr++;
-	color.b = ft_atoi(ptr);
-	return (color);
-}
+// 	i = 0;
+// 	while (ptr[i] == ' ' || ptr[i] == '\t')
+// 		i++;
+// 	return (i);
+// }
+
+// int	extract_color_value(char **ptr)
+// {
+// 	int	value;
+
+// 	value = ft_atoi(*ptr);
+// 	while (**ptr >= '0' && **ptr <= '9')
+// 		(*ptr)++;
+// 	if (**ptr == ',')
+// 		(*ptr)++;
+// 	return (value);
+// }
+
+// t_rgb	parse_color(char *line, char prefix)
+// {
+// 	t_rgb	color;
+// 	char	*ptr;
+
+// 	color.r = -1;
+// 	color.g = -1;
+// 	color.b = -1;
+// 	ptr = line;
+// 	if (*ptr != prefix)
+// 		return (color);
+// 	ptr++;
+// 	ptr += skip_whitespace(ptr);
+// 	color.r = extract_color_value(&ptr);
+// 	ptr += skip_whitespace(ptr);
+// 	color.g = extract_color_value(&ptr);
+// 	ptr += skip_whitespace(ptr);
+// 	color.b = extract_color_value(&ptr);
+// 	return (color);
+// }
 
 void	parse_floor_color(char *line, t_config *cfg)
 {
