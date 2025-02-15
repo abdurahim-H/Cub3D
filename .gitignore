@@ -2,6 +2,7 @@
 *.o
 *.out
 a.out
+cub3D
 
 # Ignore build directories
 build/
