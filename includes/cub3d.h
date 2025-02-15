@@ -27,6 +27,7 @@ typedef struct s_config
 	int		ceiling_g;
 	int		ceiling_b;
 	char	**map;
+	int		map_count;
 }	t_config;
 
 typedef struct s_rgb
@@ -72,9 +73,11 @@ t_rgb	parse_color(char *line, char prefix);
 // --------------- Map Handling ---------------
 int		is_map_line(char *line);
 char	**collect_map_lines_rest(int fd, int *map_count);
-char	**collect_map_with_first_line(int fd, int *map_count, char *first_line);
+char	**collect_map_with_first_line(int fd, char *first_line,
+			int *final_count);
 void	print_map(char **map, int map_count);
 void	calculate_map_dimensions(char **map, int map_count);
+int		append_line_to_map(char ***map, int count, char *line);
 
 // --------------- get_next_line ---------------
 char	*ft_getline(int fd);
