@@ -21,67 +21,6 @@ char	**collect_map_with_first_line(int fd, char *first_line,
 	return (temp_map);
 }
 
-static int	is_config_complete(t_config *cfg)
-{
-	if (cfg->width == -1 || cfg->height == -1)
-		return (0);
-	if (!cfg->tex_no || !cfg->tex_so || !cfg->tex_we
-		|| !cfg->tex_ea || !cfg->tex_s)
-		return (0);
-	if (cfg->floor_r == -1 || cfg->floor_g == -1 || cfg->floor_b == -1)
-		return (0);
-	if (cfg->ceiling_r == -1 || cfg->ceiling_g == -1 || cfg->ceiling_b == -1)
-		return (0);
-	return (1);
-}
-
-// void	process_config(int fd, t_config *cfg)
-// {
-// 	char	*line;
-
-// 	while (1)
-// 	{
-// 		line = ft_getline(fd);
-// 		if (!line)
-// 			break ;
-// 		if (is_map_line(line))
-// 		{
-// 			cfg->map = collect_map_with_first_line(fd, line, &cfg->map_count);
-// 			break ;
-// 		}
-// 		parse_line(line, cfg);
-// 		free(line);
-// 	}
-// }
-
-void	process_config(int fd, t_config *cfg)
-{
-	char	*line;
-
-	while (1)
-	{
-		line = ft_getline(fd);
-		if (!line)
-			break ;
-		if (line[0] == '\n' || line[0] == '\0')
-		{
-			free(line);
-			continue ;
-		}
-		if (is_map_line(line))
-		{
-			if (!is_config_complete(cfg))
-			{
-				free(line);
-				exit(1);
-			}
-			cfg->map = collect_map_with_first_line(fd, line, &cfg->map_count);
-			break ;
-		}
-		parse_line(line, cfg);
-		free(line);
-	}
-}
 
 void	calculate_map_dimensions(char **map, int map_count)
 {
@@ -101,3 +40,16 @@ void	calculate_map_dimensions(char **map, int map_count)
 	printf("Map dimensions: height = %d, width = %d\n",
 		map_count, max_width);
 }
+
+void	print_map(char **map, int map_count)
+{
+	int	i;
+
+	i = 0;
+	while (i < map_count)
+	{
+		printf("%s", map[i]);
+		i++;
+	}
+}
+

@@ -37,18 +37,6 @@ int	append_line_to_map(char ***map, int count, char *line)
 	return (count + 1);
 }
 
-void	print_map(char **map, int map_count)
-{
-	int	i;
-
-	i = 0;
-	while (i < map_count)
-	{
-		printf("%s", map[i]);
-		i++;
-	}
-}
-
 char	**collect_map_lines_rest(int fd, int *map_count, char **map)
 {
 	char	*line;
@@ -72,3 +60,4 @@ char	**collect_map_lines_rest(int fd, int *map_count, char **map)
 	*map_count = count;
 	return (map);
 }
+
