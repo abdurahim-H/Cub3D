@@ -1,7 +1,6 @@
 #include "cub3d.h"
 
-char	**collect_map_with_first_line(int fd, char *first_line,
-		int *final_count)
+char	**collect_map_with_first_line(int fd, char *first_line, int *final_count)
 {
 	char	**temp_map;
 	int		count;
@@ -16,10 +15,11 @@ char	**collect_map_with_first_line(int fd, char *first_line,
 		return (NULL);
 	}
 	count = newcount;
-	temp_map = collect_map_lines_rest(fd, &count);
+	temp_map = collect_map_lines_rest(fd, &count, temp_map);
 	*final_count = count;
 	return (temp_map);
 }
+
 
 void	process_config(int fd, t_config *cfg)
 {

@@ -12,7 +12,6 @@ int	main(int argc, char **argv)
 	fd = 0;
 	if (check_arg(argc, argv) != 0)
 		return (1);
-
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
@@ -21,13 +20,10 @@ int	main(int argc, char **argv)
 	}
 	init_config(&config);
 	process_config(fd, &config);
-
 	if (!config.map)
-		config.map = collect_map_lines_rest(fd, &config.map_count);
-
+		config.map = collect_map_lines_rest(fd, &config.map_count, config.map);
 	print_map(config.map, config.map_count);
 	calculate_map_dimensions(config.map, config.map_count);
-
 	close(fd);
 	return (0);
 }
