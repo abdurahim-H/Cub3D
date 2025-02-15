@@ -23,7 +23,7 @@ int	append_line_to_map(char ***map, int count, char *line)
 	return (count + 1);
 }
 
-char	**collect_map_lines(int fd, int *map_count)
+char	**collect_map_lines_rest(int fd, int *map_count)
 {
 	char	**temp_map;
 	char	*line;

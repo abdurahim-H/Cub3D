@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	}
 	init_config(&config);
 	process_config(fd, &config);
-	map = collect_map_lines(fd, &map_count);
+	map = collect_map_lines_rest(fd, &map_count);
 	config.map = map;
 	print_map(config.map, map_count);
 	calculate_map_dimensions(map, map_count);
