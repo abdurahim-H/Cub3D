@@ -5,7 +5,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
@@ -31,9 +31,9 @@ typedef struct s_config
 
 typedef struct s_rgb
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 }	t_rgb;
 
 typedef struct s_header
@@ -41,47 +41,60 @@ typedef struct s_header
 	size_t	size;
 }	t_header;
 
-// general
+// --------------- General ---------------
+
 int		ft_strcmp(const char *s1, const char *s2);
 int		has_cub_extension(char *filename);
 int		is_save(char *s_argument);
 int		check_arg(int argc, char **argv);
+int		ft_atoi(const char *str);
+
+// --------------- Config & Parsing ---------------
+
 void	init_config(t_config *cfg);
+void	process_config(int fd, t_config *cfg);
+
+// --------------- Line Parsing ---------------
 void	parse_line(char *line, t_config *cfg);
+void	detect_type(char *line, t_config *cfg);
+
 void	parse_resolution(char *line, t_config *cfg);
 void	parse_north_texture(char *line, t_config *cfg);
 void	parse_south_texture(char *line, t_config *cfg);
 void	parse_west_texture(char *line, t_config *cfg);
 void	parse_east_texture(char *line, t_config *cfg);
 void	parse_sprite_texture(char *line, t_config *cfg);
-void	parse_floor_texture(char *line, t_config *cfg);
-t_rgb	parse_color(char *line, char prefix);
 void	parse_floor_color(char *line, t_config *cfg);
 void	parse_ceiling_color(char *line, t_config *cfg);
-void	detect_type(char *line, t_config *cfg);
+
+t_rgb	parse_color(char *line, char prefix);
+
+// --------------- Map Handling ---------------
 int		is_map_line(char *line);
-char	**collect_map_lines(int fd, int *map_count);
+char	**collect_map_lines_rest(int fd, int *map_count);
+char	**collect_map_with_first_line(int fd, int *map_count, char *first_line);
 void	print_map(char **map, int map_count);
-void	process_config(int fd, t_config *cfg);
 void	calculate_map_dimensions(char **map, int map_count);
 
-// get_next_line
+// --------------- get_next_line ---------------
 char	*ft_getline(int fd);
 char	*ft_strdup_empty(void);
 int		fill_leftover(int fd, char **leftover_ptr);
 char	*finalize_leftover(char **leftover_ptr);
+char	*extract_and_update(char **leftover_ptr);
+char	*cleanup_and_return_null(char **ptr);
 
-// helper funcitons
-char	*ft_strdup_empty(void);
+// --------------- Helper Functions ---------------
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 char	*ft_strsub(const char *s, unsigned int start, size_t len);
-char	*ft_getline(int fd);
-char	*cleanup_and_return_null(char **ptr);
-int		ft_atoi(const char *str);
 void	*ft_realloc(void *ptr, size_t new_size);
 
+// --------------- Memory Realloc Helpers ---------------
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+void	*ft_malloc(size_t size);
+void	ft_free(void *ptr);
 
 #endif
