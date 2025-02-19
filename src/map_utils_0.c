@@ -37,27 +37,41 @@ int	append_line_to_map(char ***map, int count, char *line)
 	return (count + 1);
 }
 
+static int	process_map_line(char *line, int count, int *gap_found, char ***map)
+{
+	if (is_line_blank_or_whitespace(line))
+	{
+		if (count > 0)
+			*gap_found = 1;
+		free(line);
+		return (count);
+	}
+	if (*gap_found)
+	{
+		fprintf(stderr, "Error: Map has an empty line within it.\n");
+		free(line);
+		return (-1);
+	}
+	count = append_line_to_map(map, count, line);
+	return (count);
+}
+
 char	**collect_map_lines_rest(int fd, int *map_count, char **map)
 {
 	char	*line;
 	int		count;
+	int		gap_found;
 
 	count = *map_count;
-	while (1)
+	gap_found = 0;
+	line = ft_getline(fd);
+	while (line != NULL)
 	{
+		count = process_map_line(line, count, &gap_found, &map);
+		if (count < 0)
+			return (NULL);
 		line = ft_getline(fd);
-		if (line == NULL)
-			break ;
-		if (is_map_line(line))
-		{
-			count = append_line_to_map(&map, count, line);
-			if (count < 0)
-				return (NULL);
-		}
-		else
-			free(line);
 	}
 	*map_count = count;
 	return (map);
 }
-

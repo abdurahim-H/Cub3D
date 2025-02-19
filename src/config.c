@@ -39,8 +39,6 @@ void	process_config(int fd, t_config *cfg)
 	while (1)
 	{
 		line = ft_getline(fd);
-		if (!line)
-			break ;
 		if (line[0] == '\n' || line[0] == '\0')
 		{
 			free(line);
@@ -56,6 +54,7 @@ void	process_config(int fd, t_config *cfg)
 			cfg->map = collect_map_with_first_line(fd, line, &cfg->map_count);
 			break ;
 		}
+		printf("%s", line);
 		parse_line(line, cfg);
 		free(line);
 	}
