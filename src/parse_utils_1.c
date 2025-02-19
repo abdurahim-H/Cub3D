@@ -48,7 +48,7 @@ void	parse_sprite_texture(char *line, t_config *cfg)
 	while (*ptr == ' ' || *ptr == '\t')
 		ptr++;
 	cfg->tex_s = ft_strdup(ptr);
-	printf("Parsed Sprite texture: %s\n", cfg->tex_s);
+	// printf("Parsed Sprite texture: %s\n", cfg->tex_s);
 }
 
 void	parse_floor_color(char *line, t_config *cfg)
@@ -59,8 +59,8 @@ void	parse_floor_color(char *line, t_config *cfg)
 	cfg->floor_r = color.r;
 	cfg->floor_g = color.g;
 	cfg->floor_b = color.b;
-	printf("Parsed floor color: %d, %d, %d\n", cfg->floor_r,
-		cfg->floor_g, cfg->floor_b);
+	// printf("Parsed floor color: %d, %d, %d\n", cfg->floor_r,
+	// 	cfg->floor_g, cfg->floor_b);
 }
 
 void	parse_ceiling_color(char *line, t_config *cfg)
@@ -71,6 +71,6 @@ void	parse_ceiling_color(char *line, t_config *cfg)
 	cfg->ceiling_r = color.r;
 	cfg->ceiling_g = color.g;
 	cfg->ceiling_b = color.b;
-	printf("Parsed ceiling color: %d, %d, %d\n", cfg->ceiling_r,
-		cfg->ceiling_g, cfg->ceiling_b);
+	// printf("Parsed ceiling color: %d, %d, %d\n", cfg->ceiling_r,
+	// 	cfg->ceiling_g, cfg->ceiling_b);
 }

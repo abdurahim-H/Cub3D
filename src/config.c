@@ -32,19 +32,44 @@ static int	is_config_complete(t_config *cfg)
 	return (1);
 }
 
+// void	process_config(int fd, t_config *cfg)
+// {
+//     char	*line;
+
+//     while ((line = ft_getline(fd)) != NULL)
+//     {
+//         if (line[0] == '\n' || line[0] == '\0')
+//         {
+//             free(line);
+//             continue;
+//         }
+//         if (is_map_line(line))
+//         {
+//             if (!is_config_complete(cfg))
+//             {
+//                 free(line);
+//                 exit(1);
+//             }
+//             cfg->map = collect_map_with_first_line(fd, line, &cfg->map_count);
+//             free(line);
+//             break;
+//         }
+//         printf("\n%s\n", line);
+//         parse_line(line, cfg);
+//         free(line);
+//     }
+// }
+
 void	process_config(int fd, t_config *cfg)
 {
 	char	*line;
 
-	while (1)
+	while ((line = ft_getline(fd)) != NULL)
 	{
-		line = ft_getline(fd);
-		if (!line)
-			break ;
 		if (line[0] == '\n' || line[0] == '\0')
 		{
 			free(line);
-			continue ;
+			continue;
 		}
 		if (is_map_line(line))
 		{
@@ -54,9 +79,44 @@ void	process_config(int fd, t_config *cfg)
 				exit(1);
 			}
 			cfg->map = collect_map_with_first_line(fd, line, &cfg->map_count);
-			break ;
+			break;
 		}
+
+		/* Process and print the configuration line */
+		printf("%s", line);
 		parse_line(line, cfg);
 		free(line);
 	}
 }
+
+
+// void	process_config(int fd, t_config *cfg)
+// {
+// 	char	*line;
+
+// 	while (1)
+// 	{
+// 		line = ft_getline(fd);
+// 		printf("\n%s\n", line);
+// 		if (!line)
+// 			break ;
+// 		if (line[0] == '\n' || line[0] == '\0')
+// 		{
+// 			free(line);
+// 			continue ;
+// 		}
+// 		if (is_map_line(line))
+// 		{
+// 			if (!is_config_complete(cfg))
+// 			{
+// 				free(line);
+// 				exit(1);
+// 			}
+// 			cfg->map = collect_map_with_first_line(fd, line, &cfg->map_count);
+// 			break ;
+// 		}
+// 		parse_line(line, cfg);
+// 		// printf("\n%s\n", line);
+// 		free(line);
+// 	}
+// }
