@@ -2,21 +2,21 @@
 
 char	*trim_line(const char *line)
 {
-	return (ft_strtrim(line, " \t\n"));
+	return (ft_strtrim(line, " \t"));
 }
 
 int	validate_top_row(char **map)
 {
-	char	*trimmed;
-	int		i;
+	char		*trimmed;
+	size_t		i;
 
 	trimmed = trim_line(map[0]);
 	i = 0;
-	while (trimmed[i] != '\0')
+	while (i < ft_strlen(trimmed) - 1)
 	{
 		if (trimmed[i] != '1')
 		{
-			fprintf(stderr, "Error: Top row invalid at position %d: '%c'\n",
+			fprintf(stderr, "Error: Top row invalid at position %ld: '%c'\n",
 				i, trimmed[i]);
 			free(trimmed);
 			return (1);
@@ -49,37 +49,6 @@ int	validate_bottom_row(char **map, int map_count)
 	return (0);
 }
 
-// int	validate_side_boundaries(char **map, int map_count)
-// {
-// 	int		i;
-// 	char	*trimmed;
-// 	int		len;
-
-// 	i = 1;
-// 	while (i < map_count - 1)
-// 	{
-// 		trimmed = trim_line(map[i]);
-// 		len = ft_strlen(trimmed);
-// 		if (len > 0 && trimmed[0] != '1')
-// 		{
-// 			fprintf(stderr, "Error: Row %d does not start with a wall: '%c'\n",
-// 				i, trimmed[0]);
-// 			free(trimmed);
-// 			return (1);
-// 		}
-// 		if (len > 0 && trimmed[len - 1] != '1')
-// 		{
-// 			fprintf(stderr, "Error: Row %d does not end with a wall: '%c'\n",
-// 				i, trimmed[len - 1]);
-// 			free(trimmed);
-// 			return (1);
-// 		}
-// 		free(trimmed);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
 int	validate_side_boundaries(char **map, int map_count)
 {
 	int		i;
@@ -90,7 +59,7 @@ int	validate_side_boundaries(char **map, int map_count)
 	while (i < map_count - 1)
 	{
 		trimmed = trim_line(map[i]);
-		len = ft_strlen(trimmed);
+		len = ft_strlen(trimmed) - 1;
 		if (len > 0 && (trimmed[0] != '1' || trimmed[len - 1] != '1'))
 		{
 			if (trimmed[0] != '1')

@@ -32,39 +32,47 @@ int	validate_map_characters(char **map, int map_count)
 	return (0);
 }
 
-static int	is_set_char(char c, const char *set)
+static size_t	compute_trim_len(const char *s, const char *set)
 {
-	while (*set)
+	size_t	i;
+	size_t	trim_len;
+
+	i = 0;
+	trim_len = 0;
+	while (s[i] != '\0')
 	{
-		if (c == *set)
-			return (1);
-		set++;
+		if (!is_set_char(s[i], set))
+			trim_len++;
+		i++;
 	}
-	return (0);
+	return (trim_len);
 }
 
 char	*ft_strtrim(const char *s, const char *set)
 {
-	size_t	start;
-	size_t	end;
+	size_t	new_len;
 	size_t	i;
+	size_t	j;
 	char	*trimmed;
 
 	if (!s || !set)
 		return (NULL);
-	start = 0;
-	while (s[start] && is_set_char(s[start], set))
-		start++;
-	end = ft_strlen(s);
-	while (end > start && is_set_char(s[end - 1], set))
-		end--;
-	trimmed = malloc(end - start + 1);
+	new_len = compute_trim_len(s, set);
+	trimmed = malloc(new_len + 1);
 	if (!trimmed)
 		return (NULL);
 	i = 0;
-	while (start < end)
-		trimmed[i++] = s[start++];
-	trimmed[i] = '\0';
+	j = 0;
+	while (s[i] != '\0')
+	{
+		if (!is_set_char(s[i], set))
+		{
+			trimmed[j] = s[i];
+			j++;
+		}
+		i++;
+	}
+	trimmed[j] = '\0';
 	return (trimmed);
 }
 

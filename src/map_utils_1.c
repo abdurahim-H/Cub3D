@@ -36,7 +36,7 @@ void	calculate_map_dimensions(char **map, int map_count)
 			max_width = current_width;
 		i++;
 	}
-	printf("Map dimensions: height = %d, width = %d\n",
+	printf("\nMap dimensions: height = %d, width = %d\n",
 		map_count, max_width);
 }
 

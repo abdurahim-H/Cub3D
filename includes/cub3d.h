@@ -91,6 +91,7 @@ int		validate_player_start(char **map, int map_count);
 int		validate_map(char **map, int map_count);
 char	*ft_strtrim(const char *s, const char *set);
 char	*trim_line(const char *line);
+int		is_set_char(char c, const char *set);
 
 // --------------- get_next_line --------------- //
 char	*ft_getline(int fd);
