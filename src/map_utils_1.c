@@ -31,7 +31,7 @@ void	calculate_map_dimensions(char **map, int map_count)
 	max_width = 0;
 	while (i < map_count)
 	{
-		current_width = ft_strlen(map[i]) - 1;
+		current_width = ft_strlen(trim_line(map[i])) - 1;
 		if (current_width > max_width)
 			max_width = current_width;
 		i++;
