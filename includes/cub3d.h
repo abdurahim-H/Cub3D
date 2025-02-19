@@ -89,6 +89,7 @@ int		validate_map_boundaries(char **map, int map_count);
 int		count_player_positions(char **map, int map_count);
 int		validate_player_start(char **map, int map_count);
 int		validate_map(char **map, int map_count);
+char	*trim_line(const char *line);
 
 // --------------- get_next_line --------------- //
 char	*ft_getline(int fd);

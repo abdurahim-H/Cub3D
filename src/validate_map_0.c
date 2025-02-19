@@ -1,65 +1,140 @@
 #include "cub3d.h"
 
-int	validate_top_row(char **map)
-{
-	int	i;
+// int	validate_top_row(char **map)
+// {
+// 	int	i;
 
-	i = 0;
-	while (map[0][i] != '\0')
-	{
-		if (map[0][i] != '1')
-		{
-			fprintf(stderr, "Error: Top row invalid atposition %d: '%c'\n",
-				i, map[0][i]);
-			return (1);
-		}
-		i = i + 1;
-	}
-	return (0);
+// 	i = 0;
+// 	while (map[0][i] != '\0')
+// 	{
+// 		if (map[0][i] != '1')
+// 		{
+// 			fprintf(stderr, "Error: Top row invalid atposition %d: '%c'\n",
+// 				i, map[0][i]);
+// 			return (1);
+// 		}
+// 		i = i + 1;
+// 	}
+// 	return (0);
+// }
+
+int validate_top_row(char **map)
+{
+    char *trimmed;
+    int i;
+
+    trimmed = trim_line(map[0]);
+    i = 0;
+    while (trimmed[i] != '\0')
+    {
+        if (trimmed[i] != '1')
+        {
+            fprintf(stderr, "Error: Top row invalid at position %d: '%c'\n",
+                    i, trimmed[i]);
+            free(trimmed);
+            return (1);
+        }
+        i++;
+    }
+    free(trimmed);
+    return (0);
 }
 
-int	validate_bottom_row(char **map, int map_count)
-{
-	int	i;
+// int	validate_bottom_row(char **map, int map_count)
+// {
+// 	int	i;
 
-	i = 0;
-	while (map[map_count - 1][i] != '\0')
-	{
-		if (map[map_count - 1][i] != '1')
-		{
-			fprintf(stderr, "Error: Bottom row invalid at position %d: '%c'\n",
-				i, map[map_count - 1][i]);
-			return (1);
-		}
-		i = i + 1;
-	}
-	return (0);
+// 	i = 0;
+// 	while (map[map_count - 1][i] != '\0')
+// 	{
+// 		if (map[map_count - 1][i] != '1')
+// 		{
+// 			fprintf(stderr, "Error: Bottom row invalid at position %d: '%c'\n",
+// 				i, map[map_count - 1][i]);
+// 			return (1);
+// 		}
+// 		i = i + 1;
+// 	}
+// 	return (0);
+// }
+
+int validate_bottom_row(char **map, int map_count)
+{
+    char *trimmed;
+    int i;
+
+    trimmed = trim_line(map[map_count - 1]);
+    i = 0;
+    while (trimmed[i] != '\0')
+    {
+        if (trimmed[i] != '1')
+        {
+            fprintf(stderr, "Error: Bottom row invalid at position %d: '%c'\n",
+                    i, trimmed[i]);
+            free(trimmed);
+            return (1);
+        }
+        i++;
+    }
+    free(trimmed);
+    return (0);
 }
 
-int	validate_side_boundaries(char **map, int map_count)
-{
-	int	i;
-	int	len;
+// int	validate_side_boundaries(char **map, int map_count)
+// {
+// 	int	i;
+// 	int	len;
 
-	i = 1;
-	while (i < map_count - 1)
-	{
-		if (map[i][0] != '1')
-		{
-			fprintf(stderr, "Error: Row %d does not start with a wall: '%c'\n",
-				i, map[i][0]);
-			return (1);
-		}
-		len = ft_strlen(map[i]);
-		if (len > 0 && map[i][len - 1] != '1')
-		{
-			fprintf(stderr, "Error: Row %d does not end with a wall: '%c'\n",
-				i, map[i][len - 1]);
-			return (1);
-		}
-		i = i + 1;
-	}
-	return (0);
+// 	i = 1;
+// 	while (i < map_count - 1)
+// 	{
+// 		if (map[i][0] != '1')
+// 		{
+// 			fprintf(stderr, "Error: Row %d does not start with a wall: '%c'\n",
+// 				i, map[i][0]);
+// 			return (1);
+// 		}
+// 		len = ft_strlen(map[i]);
+// 		if (len > 0 && map[i][len - 1] != '1')
+// 		{
+// 			fprintf(stderr, "Error: Row %d does not end with a wall: '%c'\n",
+// 				i, map[i][len - 1]);
+// 			return (1);
+// 		}
+// 		i = i + 1;
+// 	}
+// 	return (0);
+// }
+
+int validate_side_boundaries(char **map, int map_count)
+{
+    int i;
+    char *trimmed;
+    int len;
+
+    i = 1;
+    while (i < map_count - 1)
+    {
+        trimmed = trim_line(map[i]);
+        len = ft_strlen(trimmed);
+        if (len > 0 && trimmed[0] != '1')
+        {
+            fprintf(stderr, "Error: Row %d does not start with a wall: '%c'\n",
+                    i, trimmed[0]);
+            free(trimmed);
+            return (1);
+        }
+        if (len > 0 && trimmed[len - 1] != '1')
+        {
+            fprintf(stderr, "Error: Row %d does not end with a wall: '%c'\n",
+                    i, trimmed[len - 1]);
+            free(trimmed);
+            return (1);
+        }
+        free(trimmed);
+        i++;
+    }
+    return (0);
 }
 
 int	validate_map_boundaries(char **map, int map_count)

@@ -3,19 +3,18 @@
 int	is_allowed_char(char c)
 {
 	if (c == '0' || c == '1' || c == '2'
-		|| c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		|| c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == '\n')
 		return (1);
 	return (0);
 }
 
-// int	is_allowed_char(char c)
+// int is_allowed_char(char c)
 // {
-//     if (c == ' ' || c == '0' || c == '1' || c == '2'
-//         || c == 'N' || c == 'S' || c == 'E' || c == 'W')
+//     if (c == ' ' || c == '0' || c == '1' || c == '2' ||
+//         c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == '\n')
 //         return (1);
 //     return (0);
 // }
-
 
 int	validate_map_characters(char **map, int map_count)
 {
@@ -38,6 +37,48 @@ int	validate_map_characters(char **map, int map_count)
 		i++;
 	}
 	return (0);
+}
+
+static int	is_set_char(char c, const char *set)
+{
+    while (*set)
+    {
+        if (c == *set)
+            return (1);
+        set++;
+    }
+    return (0);
+}
+
+char	*ft_strtrim(const char *s, const char *set)
+{
+    size_t	start;
+    size_t	end;
+    size_t	i;
+    char	*trimmed;
+
+    if (!s || !set)
+        return (NULL);
+    start = 0;
+    while (s[start] && is_set_char(s[start], set))
+        start++;
+    end = ft_strlen(s);
+    while (end > start && is_set_char(s[end - 1], set))
+        end--;
+    trimmed = malloc(end - start + 1);
+    if (!trimmed)
+        return (NULL);
+    i = 0;
+    while (start < end)
+        trimmed[i++] = s[start++];
+    trimmed[i] = '\0';
+    return (trimmed);
+}
+
+char *trim_line(const char *line)
+{
+    // Assuming ft_strtrim is implemented to remove spaces (and tabs) from start and end.
+    return ft_strtrim(line, " \t\n");
 }
 
 int	validate_map(char **map, int map_count)
