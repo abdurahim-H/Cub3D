@@ -116,7 +116,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_malloc(size_t size);
 void	ft_free(void *ptr);
 
-int	append_line_to_map(char ***map, int count, char *line);
+int		append_line_to_map(char ***map, int count, char *line);
 char	**collect_map_lines_rest(int fd, int *map_count, char **map);
 
 #endif
