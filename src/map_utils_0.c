@@ -56,7 +56,6 @@ static int	process_map_line(char *line, int count, int *gap_found, char ***map)
 	return (count);
 }
 
-// Free all individual map lines but not the map array itself
 static void	free_map_lines(char **map, int count)
 {
 	int	i;

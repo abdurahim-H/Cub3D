@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-// Safely free a pointer and set it to NULL
 void	safe_free(void **ptr)
 {
 	if (ptr && *ptr)
@@ -10,7 +9,6 @@ void	safe_free(void **ptr)
 	}
 }
 
-// Safe cleanup for all config resources
 void	free_config_resources(t_config *cfg)
 {
 	int	i;
@@ -36,7 +34,6 @@ void	free_config_resources(t_config *cfg)
 	}
 }
 
-// Exit with error message and cleanup
 void	exit_with_error(char *message, t_config *cfg)
 {
 	fprintf(stderr, "Error: %s\n", message);
