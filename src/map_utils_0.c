@@ -50,10 +50,26 @@ static int	process_map_line(char *line, int count, int *gap_found, char ***map)
 	{
 		fprintf(stderr, "Error: Map has an empty line within it.\n");
 		free(line);
-		return (-1);
+		return (-1); // Signal an error
 	}
 	count = append_line_to_map(map, count, line);
 	return (count);
+}
+
+// Free all individual map lines but not the map array itself
+static void	free_map_lines(char **map, int count)
+{
+	int	i;
+
+	i = 0;
+	if (!map)
+		return;
+	while (i < count)
+	{
+		if (map[i])
+			free(map[i]);
+		i++;
+	}
 }
 
 char	**collect_map_lines_rest(int fd, int *map_count, char **map)
@@ -69,7 +85,13 @@ char	**collect_map_lines_rest(int fd, int *map_count, char **map)
 	{
 		count = process_map_line(line, count, &gap_found, &map);
 		if (count < 0)
+		{
+			// Simple and safe cleanup
+			free_map_lines(map, *map_count);
+			free(map);
+			*map_count = 0;
 			return (NULL);
+		}
 		line = ft_getline(fd);
 	}
 	*map_count = count;
