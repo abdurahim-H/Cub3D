@@ -54,6 +54,7 @@ int		ft_atoi(const char *str);
 
 void	init_config(t_config *cfg);
 void	process_config(int fd, t_config *cfg);
+void	free_config_resources(t_config *cfg);
 
 // --------------- Line Parsing --------------- //
 void	parse_line(char *line, t_config *cfg);
@@ -72,12 +73,9 @@ t_rgb	parse_color(char *line, char prefix);
 
 // --------------- Map Handling --------------- //
 int		is_map_line(char *line);
-char	**collect_map_lines_rest(int fd, int *map_count, char **map);
-char	**collect_map_with_first_line(int fd, char *first_line,
-			int *final_count);
 void	print_map(char **map, int map_count);
 void	calculate_map_dimensions(char **map, int map_count);
-int		append_line_to_map(char ***map, int count, char *line);
+int		parse_map(t_config *cfg, int fd, char *first_line);
 
 // --------------- Map Validation --------------- //
 int		validate_map_characters(char **map, int map_count);
@@ -108,6 +106,10 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 char	*ft_strsub(const char *s, unsigned int start, size_t len);
 void	*ft_realloc(void *ptr, size_t new_size);
+
+// --------------- Memory Utilities --------------- //
+void	safe_free(void **ptr);
+void	exit_with_error(char *message, t_config *cfg);
 
 // --------------- Memory Realloc Helpers --------------- //
 void	*ft_memcpy(void *dst, const void *src, size_t n);

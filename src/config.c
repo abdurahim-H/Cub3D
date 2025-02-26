@@ -16,6 +16,7 @@ void	init_config(t_config *cfg)
 	cfg->ceiling_g = -1;
 	cfg->ceiling_b = -1;
 	cfg->map = NULL;
+	cfg->map_count = 0;
 }
 
 static int	is_config_complete(t_config *cfg)
@@ -39,21 +40,30 @@ void	process_config(int fd, t_config *cfg)
 	while (1)
 	{
 		line = ft_getline(fd);
+		if (!line) // Handle end of file or read error
+			exit_with_error("Unexpected end of file", cfg);
+		
 		if (line[0] == '\n' || line[0] == '\0')
 		{
 			free(line);
-			continue ;
+			continue;
 		}
+		
 		if (is_map_line(line))
 		{
 			if (!is_config_complete(cfg))
 			{
 				free(line);
-				exit(1);
+				exit_with_error("Incomplete configuration before map", cfg);
 			}
-			cfg->map = collect_map_with_first_line(fd, line, &cfg->map_count);
-			break ;
+			
+			 // Use our new map parser
+			if (parse_map(cfg, fd, line) < 0)
+				exit_with_error("Failed to parse map", cfg);
+			
+			break;
 		}
+		
 		printf("%s", line);
 		parse_line(line, cfg);
 		free(line);

@@ -49,10 +49,24 @@ int	main(int argc, char **argv)
 	}
 	init_config(&config);
 	process_config(fd, &config);
+	
+	// Safety check but should be unnecessary due to process_config's handling
 	if (!config.map)
-		config.map = collect_map_lines_rest(fd, &config.map_count, config.map);
-	if (validate_map(config.map, config.map_count) != 0)
+	{
+		fprintf(stderr, "Error: No valid map found\n");
+		free_config_resources(&config);
+		close(fd);
 		exit(1);
+	}
+	
+	// Run validation
+	if (validate_map(config.map, config.map_count) != 0)
+	{
+		free_config_resources(&config);
+		close(fd);
+		exit(1);
+	}
+	
 	print_map(config.map, config.map_count);
 	calculate_map_dimensions(config.map, config.map_count);
 	close(fd);
