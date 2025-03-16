@@ -6,10 +6,19 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+#include <math.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
 # endif
+
+# define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
 
 // --------------- Data Structures --------------- //
 typedef struct s_config
@@ -75,6 +84,22 @@ typedef struct s_game
 	t_config	*config;
 	t_player	player;
 }	t_game;
+
+typedef struct s_raycast
+{
+	t_vector	ray_dir;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	double		perp_wall_dist;
+}	t_raycast;
 
 // --------------- General Utility Functions --------------- //
 /* String comparison, file extension checking, argument validation,
@@ -174,9 +199,19 @@ int		handle_key(int keycode, t_game *game);
 int		close_window(t_game *game);
 
 // ------------- Player ------------- //
-// void	player_position(t_vector position);
-// void	player_direction(t_vector direction);
-// void	player_camera_plane(t_vector camera_plane);
 void	init_player(t_game *game);
+
+// Player Movement Functions
+void	move_forward(t_game *game);
+void	move_backward(t_game *game);
+void	move_left(t_game *game);
+void	move_right(t_game *game);
+void	rotate_left(t_game *game);
+void	rotate_right(t_game *game);
+
+// Raycasting Functions
+void	cast_rays(t_game *game);
+void	calculate_ray_direction(t_game *game, int x, t_vector *ray_dir);
+void	perform_dda(t_game *game, t_raycast *ray);
 
 #endif

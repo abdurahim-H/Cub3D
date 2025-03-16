@@ -10,11 +10,23 @@ void	close_game(t_game *game)
 
 int	handle_key(int keycode, t_game *game)
 {
-	if (keycode == 65307)
+	if (keycode == KEY_ESC)
 	{
 		close_game(game);
 		exit(0);
 	}
+	else if (keycode == KEY_W)
+		move_forward(game);
+	else if (keycode == KEY_S)
+		move_backward(game);
+	else if (keycode == KEY_A)
+		move_left(game);
+	else if (keycode == KEY_D)
+		move_right(game);
+	else if (keycode == KEY_LEFT)
+		rotate_left(game);
+	else if (keycode == KEY_RIGHT)
+		rotate_right(game);
 	return (0);
 }
 
@@ -42,6 +54,10 @@ int	init_game(t_game *game, t_config *config)
 			&game->img.line_length, &game->img.endian);
 	if (!game->img.addr)
 		return (1);
+		
+	// Initialize the player
+	init_player(game);
+	
 	mlx_hook(game->win, 2, 1L << 0, handle_key, game);
 	mlx_hook(game->win, 17, 1L << 17, close_window, game);
 	return (0);

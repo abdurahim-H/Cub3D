@@ -31,12 +31,16 @@ int	validate_bottom_row(char **map, int map_count)
 {
 	char	*trimmed;
 	int		i;
+	size_t	len;
 
 	trimmed = trim_line(map[map_count - 1]);
 	i = 0;
+	len = ft_strlen(trimmed);
 	while (trimmed[i] != '\0')
 	{
-		if (trimmed[i] != '1')
+		if (trimmed[len] != '\n')
+			i++;
+		else if (trimmed[i] != '1')
 		{
 			fprintf(stderr, "Error: Bottom row invalid at position %d: '%c'\n",
 				i, trimmed[i]);

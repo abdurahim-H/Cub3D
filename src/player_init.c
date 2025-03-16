@@ -5,38 +5,6 @@ static int	is_player_char(char c)
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
-// static void	set_player_direction(t_game *game, char player_direction)
-// {
-// 	if (player_direction == 'N')
-// 	{
-// 		game->player.direction.x = 0;
-// 		game->player.direction.y = -1;
-// 		game->player.camera_plane.x = -0.66;
-// 		game->player.camera_plane.y = 0;
-// 	}
-// 	else if (player_direction == 'S')
-// 	{
-// 		game->player.direction.x = 0;
-// 		game->player.direction.y = 1;
-// 		game->player.camera_plane.x = 0.66;
-// 		game->player.camera_plane.y = 0;
-// 	}
-// 	else if (player_direction == 'E')
-// 	{
-// 		game->player.direction.x = 1;
-// 		game->player.direction.y = 0;
-// 		game->player.camera_plane.x = 0;
-// 		game->player.camera_plane.y = 0.66;
-// 	}
-// 	else if (player_direction == 'W')
-// 	{
-// 		game->player.direction.x = -1;
-// 		game->player.direction.y = 0;
-// 		game->player.camera_plane.x = 0;
-// 		game->player.camera_plane.y = -0.66;
-// 	}
-// }
-
 static void	set_player_direction_ns(t_game *game, char player_direction)
 {
 	if (player_direction == 'N')
