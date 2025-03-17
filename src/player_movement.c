@@ -4,11 +4,13 @@ void	move_forward(t_game *game)
 {
 	double	new_x;
 	double	new_y;
+	double	speed_multiplier;
 
+	speed_multiplier = 2.2; // 20% increase in speed
 	new_x = game->player.position.x + game->player.direction.x
-		* game->player.move_speed;
+		* game->player.move_speed * speed_multiplier;
 	new_y = game->player.position.y + game->player.direction.y
-		* game->player.move_speed;
+		* game->player.move_speed * speed_multiplier;
 	if (new_y < 0 || new_y >= game->config->map_count)
 		return ;
 	if (new_x < 0 || new_x >= ft_strlen(game->config->map[(int)new_y]))
@@ -24,11 +26,13 @@ void	move_backward(t_game *game)
 {
 	double	new_x;
 	double	new_y;
+	double	speed_multiplier;
 
+	speed_multiplier = 2.2; // 20% increase in speed
 	new_x = game->player.position.x - game->player.direction.x
-		* game->player.move_speed;
+		* game->player.move_speed * speed_multiplier;
 	new_y = game->player.position.y - game->player.direction.y
-		* game->player.move_speed;
+		* game->player.move_speed * speed_multiplier;
 	if (new_y < 0 || new_y >= game->config->map_count)
 		return ;
 	if (new_x < 0 || new_x >= ft_strlen(game->config->map[(int)new_y]))
@@ -44,11 +48,13 @@ void	move_left(t_game *game)
 {
 	double	new_x;
 	double	new_y;
+	double	speed_multiplier;
 
+	speed_multiplier = 2.2; // 20% increase in speed
 	new_x = game->player.position.x - game->player.direction.y
-		* game->player.move_speed;
+		* game->player.move_speed * speed_multiplier;
 	new_y = game->player.position.y + game->player.direction.x
-		* game->player.move_speed;
+		* game->player.move_speed * speed_multiplier;
 	if (new_y < 0 || new_y >= game->config->map_count)
 		return ;
 	if (new_x < 0 || new_x >= ft_strlen(game->config->map[(int)new_y]))
@@ -64,11 +70,13 @@ void	move_right(t_game *game)
 {
 	double	new_x;
 	double	new_y;
+	double	speed_multiplier;
 
+	speed_multiplier = 2.2; // 20% increase in speed
 	new_x = game->player.position.x + game->player.direction.y
-		* game->player.move_speed;
+		* game->player.move_speed * speed_multiplier;
 	new_y = game->player.position.y - game->player.direction.x
-		* game->player.move_speed;
+		* game->player.move_speed * speed_multiplier;
 	if (new_y < 0 || new_y >= game->config->map_count)
 		return ;
 	if (new_x < 0 || new_x >= ft_strlen(game->config->map[(int)new_y]))

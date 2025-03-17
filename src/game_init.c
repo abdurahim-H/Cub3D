@@ -24,9 +24,9 @@ int	handle_key(int keycode, t_game *game)
 	else if (keycode == KEY_D)
 		move_right(game);
 	else if (keycode == KEY_LEFT)
-		rotate_left(game);
+			rotate_right(game);  // Changed from rotate_left
 	else if (keycode == KEY_RIGHT)
-		rotate_right(game);
+			rotate_left(game);   // Changed from rotate_right
 	return (0);
 }
 
@@ -60,5 +60,10 @@ int	init_game(t_game *game, t_config *config)
 	
 	mlx_hook(game->win, 2, 1L << 0, handle_key, game);
 	mlx_hook(game->win, 17, 1L << 17, close_window, game);
+	mlx_loop_hook(game->mlx, render_loop, game);
 	return (0);
 }
+
+
+
+// mlx_loop_hook(game->mlx, render, game);

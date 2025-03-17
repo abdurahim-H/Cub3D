@@ -7,6 +7,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 #include <math.h>
+#include <string.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
@@ -100,6 +101,13 @@ typedef struct s_raycast
 	int			side;
 	double		perp_wall_dist;
 }	t_raycast;
+
+typedef	struct s_draw_bounds
+{
+    int			start;
+    int			end;
+}	t_draw_bounds;
+
 
 // --------------- General Utility Functions --------------- //
 /* String comparison, file extension checking, argument validation,
@@ -213,5 +221,12 @@ void	rotate_right(t_game *game);
 void	cast_rays(t_game *game);
 void	calculate_ray_direction(t_game *game, int x, t_vector *ray_dir);
 void	perform_dda(t_game *game, t_raycast *ray);
+int		create_trgb(t_rgb color);
+void	my_mlx_pixel_put(t_img *img, int x, int y, t_rgb color);
+void	render(void *param);
+int		render_loop(void *param);
+// int render(void *param);
+
+// int		render(void *param);
 
 #endif
