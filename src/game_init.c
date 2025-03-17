@@ -79,7 +79,6 @@ int	init_game(t_game *game, t_config *config)
 			&game->img.line_length, &game->img.endian);
 	if (!game->img.addr)
 		return (1);
-	// Initialize input struct to all keys released
 	game->input = (t_input){0, 0, 0, 0, 0, 0, 0, 0};
 	init_player(game);
 	mlx_hook(game->win, 2, 1L << 0, key_press, game);

@@ -45,13 +45,10 @@ void	render(void *param)
 
 void	process_input(t_game *game)
 {
-	int diagonal;
-	
-	// Check if we're moving diagonally
+	int	diagonal;
+
 	diagonal = (game->input.key_w || game->input.key_s) && 
 			  (game->input.key_a || game->input.key_d);
-	
-	// Process movement keys
 	if (game->input.key_w)
 		move_forward(game, diagonal);
 	if (game->input.key_s)
@@ -60,8 +57,6 @@ void	process_input(t_game *game)
 		move_left(game, diagonal);
 	if (game->input.key_d)
 		move_right(game, diagonal);
-	
-	// Process rotation and looking keys
 	if (game->input.key_left)
 		rotate_right(game);
 	if (game->input.key_right)
