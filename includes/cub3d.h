@@ -81,6 +81,18 @@ typedef struct s_player
 	double vertical_limit;
 }	t_player;
 
+typedef struct s_input
+{
+	int	key_w;
+	int	key_a;
+	int	key_s;
+	int	key_d;
+	int	key_left;
+	int	key_right;
+	int	key_up;
+	int	key_down;
+}	t_input;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -88,6 +100,7 @@ typedef struct s_game
 	t_img		img;
 	t_config	*config;
 	t_player	player;
+	t_input		input;
 }	t_game;
 
 typedef struct s_raycast
@@ -212,12 +225,10 @@ int		close_window(t_game *game);
 
 // ------------- Player ------------- //
 void	init_player(t_game *game);
-
-// Player Movement Functions
-void	move_forward(t_game *game);
-void	move_backward(t_game *game);
-void	move_left(t_game *game);
-void	move_right(t_game *game);
+void	move_forward(t_game *game, int diagonal);
+void	move_backward(t_game *game, int diagonal);
+void	move_left(t_game *game, int diagonal);
+void	move_right(t_game *game, int diagonal);
 void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
 void	look_up(t_game *game);
@@ -234,5 +245,9 @@ int		render_loop(void *param);
 // int render(void *param);
 
 // int		render(void *param);
+
+int		key_press(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
+void	process_input(t_game *game);
 
 #endif

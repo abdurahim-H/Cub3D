@@ -64,13 +64,11 @@ void perform_dda_algorithm(t_game *game, t_raycast *ray)
             ray->map_y += ray->step_y;
             ray->side = 1;
         }
-        
-        // Check if ray is outside map boundaries
         if (ray->map_y < 0 || ray->map_x < 0 || 
             ray->map_y >= game->config->map_count || 
             ray->map_x >= (int)strlen(game->config->map[ray->map_y]))
         {
-            ray->hit = 1; // Stop the ray
+            ray->hit = 1;
             continue;
         }
         

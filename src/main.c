@@ -40,8 +40,6 @@ int	main(int argc, char **argv)
 		free_config_resources(&config);
 		exit(1);
 	}
-	
-	// Add debug information before entering the game loop
 	printf("Player initial position: (%f, %f)\n", game.player.position.x, game.player.position.y);
 	printf("Player initial direction: (%f, %f)\n", game.player.direction.x, game.player.direction.y);
 	

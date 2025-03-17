@@ -8,7 +8,7 @@ void	close_game(t_game *game)
 		mlx_destroy_window(game->mlx, game->win);
 }
 
-int	handle_key(int keycode, t_game *game)
+int	key_press(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 	{
@@ -16,21 +16,42 @@ int	handle_key(int keycode, t_game *game)
 		exit(0);
 	}
 	else if (keycode == KEY_W)
-		move_forward(game);
+		game->input.key_w = 1;
 	else if (keycode == KEY_S)
-		move_backward(game);
+		game->input.key_s = 1;
 	else if (keycode == KEY_A)
-		move_left(game);
+		game->input.key_a = 1;
 	else if (keycode == KEY_D)
-		move_right(game);
+		game->input.key_d = 1;
 	else if (keycode == KEY_LEFT)
-			rotate_right(game);
+		game->input.key_left = 1;
 	else if (keycode == KEY_RIGHT)
-			rotate_left(game);
+		game->input.key_right = 1;
 	else if (keycode == KEY_UP)
-		look_down(game);
+		game->input.key_up = 1;
 	else if (keycode == KEY_DOWN)
-		look_up(game);
+		game->input.key_down = 1;
+	return (0);
+}
+
+int	key_release(int keycode, t_game *game)
+{
+	if (keycode == KEY_W)
+		game->input.key_w = 0;
+	else if (keycode == KEY_S)
+		game->input.key_s = 0;
+	else if (keycode == KEY_A)
+		game->input.key_a = 0;
+	else if (keycode == KEY_D)
+		game->input.key_d = 0;
+	else if (keycode == KEY_LEFT)
+		game->input.key_left = 0;
+	else if (keycode == KEY_RIGHT)
+		game->input.key_right = 0;
+	else if (keycode == KEY_UP)
+		game->input.key_up = 0;
+	else if (keycode == KEY_DOWN)
+		game->input.key_down = 0;
 	return (0);
 }
 
@@ -58,11 +79,11 @@ int	init_game(t_game *game, t_config *config)
 			&game->img.line_length, &game->img.endian);
 	if (!game->img.addr)
 		return (1);
-		
-	// Initialize the player
+	// Initialize input struct to all keys released
+	game->input = (t_input){0, 0, 0, 0, 0, 0, 0, 0};
 	init_player(game);
-	
-	mlx_hook(game->win, 2, 1L << 0, handle_key, game);
+	mlx_hook(game->win, 2, 1L << 0, key_press, game);
+	mlx_hook(game->win, 3, 1L << 1, key_release, game);
 	mlx_hook(game->win, 17, 1L << 17, close_window, game);
 	mlx_loop_hook(game->mlx, render_loop, game);
 	return (0);

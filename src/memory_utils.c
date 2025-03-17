@@ -12,15 +12,11 @@ void	safe_free(void **ptr)
 void	free_config_resources(t_config *cfg)
 {
 	int	i;
-
-	// Free all texture paths
 	safe_free((void **)&cfg->tex_no);
 	safe_free((void **)&cfg->tex_so);
 	safe_free((void **)&cfg->tex_we);
 	safe_free((void **)&cfg->tex_ea);
 	safe_free((void **)&cfg->tex_s);
-	
-	// Free map lines
 	if (cfg->map)
 	{
 		i = 0;

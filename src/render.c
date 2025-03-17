@@ -18,25 +18,6 @@ void	draw_section(t_game *game, int y_start, int y_end, t_rgb color)
 	}
 }
 
-// void	render(void *param)
-// {
-// 	t_game *game;
-
-// 	game = (t_game *)param;
-// 	t_rgb	floor_color;
-// 	t_rgb	ceiling_color;
-// 	floor_color.r = game->config->floor_r;
-// 	floor_color.g = game->config->floor_g;
-// 	floor_color.b = game->config->floor_b;
-// 	ceiling_color.r = game->config->ceiling_r;
-// 	ceiling_color.g = game->config->ceiling_g;
-// 	ceiling_color.b = game->config->ceiling_b;
-// 	draw_section(game, 0, game->config->height / 2, ceiling_color);
-// 	draw_section(game, game->config->height / 2, game->config->height, floor_color);
-// 	cast_rays(game);
-// 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
-// }
-
 void	render(void *param)
 {
 	t_game		*game;
@@ -62,11 +43,41 @@ void	render(void *param)
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }
 
+void	process_input(t_game *game)
+{
+	int diagonal;
+	
+	// Check if we're moving diagonally
+	diagonal = (game->input.key_w || game->input.key_s) && 
+			  (game->input.key_a || game->input.key_d);
+	
+	// Process movement keys
+	if (game->input.key_w)
+		move_forward(game, diagonal);
+	if (game->input.key_s)
+		move_backward(game, diagonal);
+	if (game->input.key_a)
+		move_left(game, diagonal);
+	if (game->input.key_d)
+		move_right(game, diagonal);
+	
+	// Process rotation and looking keys
+	if (game->input.key_left)
+		rotate_right(game);
+	if (game->input.key_right)
+		rotate_left(game);
+	if (game->input.key_up)
+		look_down(game);
+	if (game->input.key_down)
+		look_up(game);
+}
+
 int	render_loop(void *param)
 {
 	t_game *game;
 
 	game = (t_game *)param;
+	process_input(game);
 	render(game);
 	return (0);
 }

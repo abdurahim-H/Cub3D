@@ -1,12 +1,16 @@
 #include "cub3d.h"
 
-void	move_forward(t_game *game)
+void	move_forward(t_game *game, int diagonal)
 {
 	double	new_x;
 	double	new_y;
 	double	speed_multiplier;
 
-	speed_multiplier = 2.2; // 20% increase in speed
+	speed_multiplier = 1.0;
+	// Adjust speed for diagonal movement (approximately 70.7% of normal speed)
+	if (diagonal)
+		speed_multiplier *= 0.707;
+	
 	new_x = game->player.position.x + game->player.direction.x
 		* game->player.move_speed * speed_multiplier;
 	new_y = game->player.position.y + game->player.direction.y
@@ -22,13 +26,17 @@ void	move_forward(t_game *game)
 	}
 }
 
-void	move_backward(t_game *game)
+void	move_backward(t_game *game, int diagonal)
 {
 	double	new_x;
 	double	new_y;
 	double	speed_multiplier;
 
-	speed_multiplier = 2.2; // 20% increase in speed
+	speed_multiplier = 1.0;
+	// Adjust speed for diagonal movement
+	if (diagonal)
+		speed_multiplier *= 0.707;
+		
 	new_x = game->player.position.x - game->player.direction.x
 		* game->player.move_speed * speed_multiplier;
 	new_y = game->player.position.y - game->player.direction.y
@@ -44,13 +52,17 @@ void	move_backward(t_game *game)
 	}
 }
 
-void	move_left(t_game *game)
+void	move_left(t_game *game, int diagonal)
 {
 	double	new_x;
 	double	new_y;
 	double	speed_multiplier;
 
-	speed_multiplier = 2.2; // 20% increase in speed
+	speed_multiplier = 1.0;
+	// Adjust speed for diagonal movement
+	if (diagonal)
+		speed_multiplier *= 0.707;
+		
 	new_x = game->player.position.x - game->player.direction.y
 		* game->player.move_speed * speed_multiplier;
 	new_y = game->player.position.y + game->player.direction.x
@@ -66,13 +78,17 @@ void	move_left(t_game *game)
 	}
 }
 
-void	move_right(t_game *game)
+void	move_right(t_game *game, int diagonal)
 {
 	double	new_x;
 	double	new_y;
 	double	speed_multiplier;
 
-	speed_multiplier = 2.2; // 20% increase in speed
+	speed_multiplier = 1.0;
+	// Adjust speed for diagonal movement
+	if (diagonal)
+		speed_multiplier *= 0.707;
+		
 	new_x = game->player.position.x + game->player.direction.y
 		* game->player.move_speed * speed_multiplier;
 	new_y = game->player.position.y - game->player.direction.x
