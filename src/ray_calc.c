@@ -77,19 +77,6 @@ void perform_dda_algorithm(t_game *game, t_raycast *ray)
     }
 }
 
-// void perform_dda(t_game *game, t_raycast *ray)
-// {
-//     init_ray_data(game, ray);
-//     calculate_step_and_side_dist(game, ray);
-//     perform_dda_algorithm(game, ray);
-    
-//     if (ray->side == 0)
-//         ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
-//     else
-//         ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
-// }
-
-
 void perform_dda(t_game *game, t_raycast *ray)
 {
     init_ray_data(game, ray);
@@ -100,19 +87,9 @@ void perform_dda(t_game *game, t_raycast *ray)
         ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
     else
         ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
-        
-    // Calculate wall_x - where exactly the ray hit the wall
-    if (ray->side == 0) // East or west wall
-    {
-        // For east/west walls, calculate the exact y-coordinate where the ray hit
+    if (ray->side == 0)
         ray->wall_x = game->player.position.y + ray->perp_wall_dist * ray->ray_dir.y;
-    }
-    else // North or south wall
-    {
-        // For north/south walls, calculate the exact x-coordinate where the ray hit
+    else
         ray->wall_x = game->player.position.x + ray->perp_wall_dist * ray->ray_dir.x;
-    }
-    
-    // Take only the fractional part to normalize between 0 and 1
     ray->wall_x = ray->wall_x - floor(ray->wall_x);
 }

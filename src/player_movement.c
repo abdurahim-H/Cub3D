@@ -1,27 +1,55 @@
 #include "cub3d.h"
 
-void	move_forward(t_game *game, int diagonal)
-{
-	double	new_x;
-	double	new_y;
-	double	speed_multiplier;
+// void	move_forward(t_game *game, int diagonal)
+// {
+// 	double	new_x;
+// 	double	new_y;
+// 	double	speed_multiplier;
 
-	speed_multiplier = 1.0;
-	if (diagonal)
-		speed_multiplier *= 0.707;
-	new_x = game->player.position.x + game->player.direction.x
-		* game->player.move_speed * speed_multiplier;
-	new_y = game->player.position.y + game->player.direction.y
-		* game->player.move_speed * speed_multiplier;
-	if (new_y < 0 || new_y >= game->config->map_count)
-		return ;
-	if (new_x < 0 || new_x >= ft_strlen(game->config->map[(int)new_y]))
-		return ;
-	if (game->config->map[(int)new_y][(int)new_x] != '1')
-	{
-		game->player.position.x = new_x;
-		game->player.position.y = new_y;
-	}
+// 	speed_multiplier = 1.0;
+// 	if (diagonal)
+// 		speed_multiplier *= 0.707;
+// 	new_x = game->player.position.x + game->player.direction.x
+// 		* game->player.move_speed * speed_multiplier;
+// 	new_y = game->player.position.y + game->player.direction.y
+// 		* game->player.move_speed * speed_multiplier;
+// 	if (new_y < 0 || new_y >= game->config->map_count)
+// 		return ;
+// 	if (new_x < 0 || new_x >= ft_strlen(game->config->map[(int)new_y]))
+// 		return ;
+// 	if (game->config->map[(int)new_y][(int)new_x] != '1')
+// 	{
+// 		game->player.position.x = new_x;
+// 		game->player.position.y = new_y;
+// 	}
+// }
+
+void move_forward(t_game *game, int diagonal)
+{
+    double new_x;
+    double new_y;
+    double speed_multiplier;
+
+    speed_multiplier = 1.0;
+    if (diagonal)
+        speed_multiplier *= 0.707;
+    
+    new_x = game->player.position.x + game->player.direction.x
+        * game->player.move_speed * speed_multiplier;
+    new_y = game->player.position.y + game->player.direction.y
+        * game->player.move_speed * speed_multiplier;
+    if (new_y < 0 || new_y >= game->config->map_count)
+        return;
+    if (new_x < 0 || new_x >= ft_strlen(game->config->map[(int)new_y]))
+        return;
+    if (game->config->map[(int)new_y][(int)new_x] != '1')
+    {
+        if (!would_collide_with_sprite(game, new_x, new_y))
+        {
+            game->player.position.x = new_x;
+            game->player.position.y = new_y;
+        }
+    }
 }
 
 void	move_backward(t_game *game, int diagonal)

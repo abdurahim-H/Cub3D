@@ -93,19 +93,30 @@ typedef struct s_input
 	int	key_down;
 }	t_input;
 
+typedef struct s_sprite
+{
+	double	x;
+	double	y;
+	double	distance;
+	int		texture;
+}	t_sprite;
+
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
 	t_img		img;
-	t_img       tex_north;
-    t_img       tex_south;
-    t_img       tex_west;
-    t_img       tex_east;
-    t_img       tex_sprite;
+	t_img		tex_north;
+	t_img		tex_south;
+	t_img		tex_west;
+	t_img		tex_east;
+	t_img		tex_sprite;
 	t_config	*config;
 	t_player	player;
 	t_input		input;
+	t_sprite	*sprites;
+    int			num_sprites;
+    double		*zbuffer;
 }	t_game;
 
 typedef struct s_raycast
@@ -127,9 +138,10 @@ typedef struct s_raycast
 
 typedef	struct s_draw_bounds
 {
-    int			start;
-    int			end;
+	int			start;
+	int			end;
 }	t_draw_bounds;
+
 
 
 // --------------- General Utility Functions --------------- //
@@ -266,5 +278,13 @@ void	trim_whitespace(char *str);
 void	trim_texture_paths(t_config *config);
 void	print_texture_paths(t_config *config);
 
+// --------------- Sprite Functions --------------- //
+int     initialize_sprites(t_game *game);
+void    calculate_sprite_distances(t_game *game);
+void    sort_sprites(t_game *game);
+void    render_sprites(t_game *game);
+void    update_zbuffer(t_game *game, int x, double distance);
+void    cleanup_sprites(t_game *game);
+int would_collide_with_sprite(t_game *game, double x, double y);
 
 #endif

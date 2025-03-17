@@ -4,37 +4,27 @@ int load_texture(void *mlx, char *path, t_img *img)
 {
     int width;
     int height;
-    
-    // Input validation
     if (!mlx || !path || !img)
         return (1);
-    
     printf("Attempting to load texture: %s\n", path);
-    
-    // Attempt to load the XPM file
     img->img = mlx_xpm_file_to_image(mlx, path, &width, &height);
     if (!img->img)
     {
         fprintf(stderr, "Error: Failed to load texture: %s\n", path);
-        // Try printing width and height to see if they were set
         printf("Width: %d, Height: %d\n", width, height);
         return (1);
     }
     
     printf("Successfully loaded texture: %s (%dx%d)\n", path, width, height);
-    
-    // Get the image data address and info
     img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, 
                                   &img->line_length, &img->endian);
     if (!img->addr)
     {
-        // Clean up the partially loaded image
         mlx_destroy_image(mlx, img->img);
         img->img = NULL;
         fprintf(stderr, "Error: Failed to get texture data: %s\n", path);
         return (1);
     }
-    
     printf("Texture data retrieved successfully for: %s\n", path);
     return (0);
 }

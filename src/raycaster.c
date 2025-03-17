@@ -103,6 +103,18 @@ t_rgb	compute_color(t_raycast *ray)
 // 	draw_line(game, x, bounds, color);
 // }
 
+// void process_column(t_game *game, int x)
+// {
+//     t_raycast        ray;
+//     t_draw_bounds    bounds;
+
+//     ray = compute_ray(game, x);
+//     compute_draw_bounds(game, ray.perp_wall_dist, &bounds);
+    
+//     // Replace draw_line with draw_textured_line
+//     draw_textured_line(game, x, bounds, &ray);
+// }
+
 void process_column(t_game *game, int x)
 {
     t_raycast        ray;
@@ -110,9 +122,8 @@ void process_column(t_game *game, int x)
 
     ray = compute_ray(game, x);
     compute_draw_bounds(game, ray.perp_wall_dist, &bounds);
-    
-    // Replace draw_line with draw_textured_line
     draw_textured_line(game, x, bounds, &ray);
+    update_zbuffer(game, x, ray.perp_wall_dist);
 }
 
 void	cast_rays(t_game *game)
