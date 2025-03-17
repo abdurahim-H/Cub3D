@@ -98,6 +98,11 @@ typedef struct s_game
 	void		*mlx;
 	void		*win;
 	t_img		img;
+	t_img       tex_north;
+    t_img       tex_south;
+    t_img       tex_west;
+    t_img       tex_east;
+    t_img       tex_sprite;
 	t_config	*config;
 	t_player	player;
 	t_input		input;
@@ -117,6 +122,7 @@ typedef struct s_raycast
 	int			hit;
 	int			side;
 	double		perp_wall_dist;
+	double		wall_x;
 }	t_raycast;
 
 typedef	struct s_draw_bounds
@@ -249,5 +255,12 @@ int		render_loop(void *param);
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
 void	process_input(t_game *game);
+
+int load_texture(void *mlx, char *path, t_img *img);
+int	load_textures(t_game *game);
+t_img	*get_wall_texture(t_game *game, t_raycast *ray);
+t_rgb	get_pixel_color(t_img *img, int x, int y);
+void	draw_textured_line(t_game *game, int x, t_draw_bounds bounds, t_raycast *ray);
+
 
 #endif
