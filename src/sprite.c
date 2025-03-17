@@ -92,25 +92,65 @@ int compare_sprites(const void *s1, const void *s2)
     return (0);
 }
 
+// int would_collide_with_sprite(t_game *game, double x, double y)
+// {
+//     int i;
+//     double collision_distance;
+//     double dx, dy, distance_squared;
+    
+//     if (!game->sprites || game->num_sprites <= 0)
+//         return (0);
+    
+//     collision_distance = 0.3;
+    
+//     i = 0;
+//     while (i < game->num_sprites)
+//     {
+//         dx = x - game->sprites[i].x;
+//         dy = y - game->sprites[i].y;
+        
+//         distance_squared = dx * dx + dy * dy;
+        
+//         if (distance_squared < collision_distance * collision_distance)
+//             return (1);
+        
+//         i++;
+//     }
+    
+//     return (0);
+// }
+
 int would_collide_with_sprite(t_game *game, double x, double y)
 {
     int i;
     double collision_distance;
     double dx, dy, distance_squared;
     
+    // No collision if no sprites
     if (!game->sprites || game->num_sprites <= 0)
         return (0);
     
-    collision_distance = 0.3;
+    // Set collision distance (radius around sprite where player can't enter)
+    collision_distance = 0.3;  // Adjust this value to change collision sensitivity
     
+    // Check distance to each sprite
     i = 0;
     while (i < game->num_sprites)
     {
+        // Validate sprite coordinates to prevent segfault
+        if (game->sprites[i].x < 0 || game->sprites[i].y < 0)
+        {
+            i++;
+            continue;
+        }
+        
         dx = x - game->sprites[i].x;
         dy = y - game->sprites[i].y;
         
+        // Calculate squared distance (faster than using sqrt)
         distance_squared = dx * dx + dy * dy;
         
+        // If player is too close to a sprite, collision occurs
         if (distance_squared < collision_distance * collision_distance)
             return (1);
         

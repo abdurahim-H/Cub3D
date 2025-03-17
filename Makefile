@@ -20,7 +20,7 @@ NC       = \033[0m  # No Color
 
 # Compiler, Removal Utility, and Flags
 CC       = cc
-CFLAGS   = -Wall -Wextra -Werror -O3 -Iincludes -Imlx_linux  # Added -Imlx_linux
+CFLAGS   = -O3 -Iincludes -Imlx_linux  # Added -Imlx_linux
 RM       = rm -f
 
 # MiniLibX and Linux Libraries

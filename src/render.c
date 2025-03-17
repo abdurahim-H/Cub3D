@@ -18,29 +18,35 @@ void	draw_section(t_game *game, int y_start, int y_end, t_rgb color)
 	}
 }
 
-// void	render(void *param)
+// void render(void *param)
 // {
-// 	t_game		*game;
-// 	t_rgb		floor_color;
-// 	t_rgb		ceiling_color;
-// 	int			horizon_line;
+//     t_game      *game;
+//     t_rgb       floor_color;
+//     t_rgb       ceiling_color;
+//     int         horizon_line;
 
-// 	game = (t_game *)param;
-// 	floor_color.r = game->config->floor_r;
-// 	floor_color.g = game->config->floor_g;
-// 	floor_color.b = game->config->floor_b;
-// 	ceiling_color.r = game->config->ceiling_r;
-// 	ceiling_color.g = game->config->ceiling_g;
-// 	ceiling_color.b = game->config->ceiling_b;
-// 	horizon_line = game->config->height / 2 + game->player.vertical_offset;
-// 	if (horizon_line < 0)
-// 		horizon_line = 0;
-// 	if (horizon_line > game->config->height)
-// 		horizon_line = game->config->height;
-// 	draw_section(game, 0, horizon_line, ceiling_color);
-// 	draw_section(game, horizon_line, game->config->height, floor_color);
-// 	cast_rays(game);
-// 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+//     game = (t_game *)param;
+//     floor_color.r = game->config->floor_r;
+//     floor_color.g = game->config->floor_g;
+//     floor_color.b = game->config->floor_b;
+//     ceiling_color.r = game->config->ceiling_r;
+//     ceiling_color.g = game->config->ceiling_g;
+//     ceiling_color.b = game->config->ceiling_b;
+//     horizon_line = game->config->height / 2 + game->player.vertical_offset;
+//     if (horizon_line < 0)
+//         horizon_line = 0;
+//     if (horizon_line > game->config->height)
+//         horizon_line = game->config->height;
+//     draw_section(game, 0, horizon_line, ceiling_color);
+//     draw_section(game, horizon_line, game->config->height, floor_color);
+//     cast_rays(game);
+    
+//     // Render sprites after walls
+//     render_sprites(game);
+    
+//     // Only put image to window if we have a window (not in save mode)
+//     if (game->win)
+//         mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 // }
 
 void render(void *param)
@@ -65,14 +71,12 @@ void render(void *param)
     draw_section(game, 0, horizon_line, ceiling_color);
     draw_section(game, horizon_line, game->config->height, floor_color);
     cast_rays(game);
-    
-    // Render sprites after walls
     render_sprites(game);
-    
-    // Only put image to window if we have a window (not in save mode)
+    draw_minimap(game);
     if (game->win)
         mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }
+
 
 void	process_input(t_game *game)
 {

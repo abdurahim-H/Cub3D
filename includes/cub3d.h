@@ -289,4 +289,8 @@ int would_collide_with_sprite(t_game *game, double x, double y);
 
 int save_screenshot(t_game *game);
 
+void draw_minimap(t_game *game);
+void draw_transparent_rectangle(t_game *game, int x, int y, int width,
+	int height, t_rgb color, int alpha);
+
 #endif
