@@ -69,7 +69,9 @@ void render(void *param)
     // Render sprites after walls
     render_sprites(game);
     
-    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+    // Only put image to window if we have a window (not in save mode)
+    if (game->win)
+        mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }
 
 void	process_input(t_game *game)

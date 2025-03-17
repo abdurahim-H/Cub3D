@@ -287,4 +287,6 @@ void    update_zbuffer(t_game *game, int x, double distance);
 void    cleanup_sprites(t_game *game);
 int would_collide_with_sprite(t_game *game, double x, double y);
 
+int save_screenshot(t_game *game);
+
 #endif
