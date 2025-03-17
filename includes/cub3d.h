@@ -262,5 +262,9 @@ t_img	*get_wall_texture(t_game *game, t_raycast *ray);
 t_rgb	get_pixel_color(t_img *img, int x, int y);
 void	draw_textured_line(t_game *game, int x, t_draw_bounds bounds, t_raycast *ray);
 
+void	trim_whitespace(char *str);
+void	trim_texture_paths(t_config *config);
+void	print_texture_paths(t_config *config);
+
 
 #endif
