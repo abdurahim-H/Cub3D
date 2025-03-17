@@ -58,6 +58,8 @@ static void	setup_player(t_game *game, char player_direction,
 	set_player_direction(game, player_direction);
 	game->player.move_speed = 0.05;
 	game->player.rot_speed = 0.03;
+	game->player.vertical_offset = 0.0;
+	game->player.vertical_limit = 300.0;
 }
 
 static int	find_player_position(t_game *game, char **map, int map_count)

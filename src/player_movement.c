@@ -129,3 +129,15 @@ void	rotate_right(t_game *game)
 	game->player.camera_plane.y = old_plane_x * sin_rot
 		+ game->player.camera_plane.y * cos_rot;
 }
+
+void	look_up(t_game *game)
+{
+	if (game->player.vertical_offset > -game->player.vertical_limit)
+		game->player.vertical_offset -= 15.0;
+}
+
+void	look_down(t_game *game)
+{
+	if (game->player.vertical_offset < game->player.vertical_limit)
+		game->player.vertical_offset += 15.0;
+}

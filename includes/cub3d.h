@@ -20,6 +20,8 @@
 # define KEY_D 100
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
+# define KEY_UP 65362
+# define KEY_DOWN 65364
 
 // --------------- Data Structures --------------- //
 typedef struct s_config
@@ -75,6 +77,8 @@ typedef struct s_player
 	t_vector	camera_plane;
 	double		move_speed;
 	double		rot_speed;
+	double vertical_offset;
+	double vertical_limit;
 }	t_player;
 
 typedef struct s_game
@@ -216,6 +220,8 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
+void	look_up(t_game *game);
+void	look_down(t_game *game);
 
 // Raycasting Functions
 void	cast_rays(t_game *game);
