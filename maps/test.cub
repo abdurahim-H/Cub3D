@@ -4,8 +4,8 @@ SO /home/abdurahim/Desktop/42_c_projects/Cub3D/textures/south_64x64.xpm
 WE /home/abdurahim/Desktop/42_c_projects/Cub3D/textures/west_64x64.xpm
 EA /home/abdurahim/Desktop/42_c_projects/Cub3D/textures/east_64x64.xpm
 S /home/abdurahim/Desktop/42_c_projects/Cub3D/textures/sprite_64x64.xpm
-F 220,100,0
-C 225,30,0
+F 20,20,20
+C 50,50,0
 
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
