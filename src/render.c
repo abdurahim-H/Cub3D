@@ -96,10 +96,10 @@ void	process_input(t_game *game)
 		rotate_right(game);
 	if (game->input.key_right)
 		rotate_left(game);
-	if (game->input.key_up)
-		look_down(game);
-	if (game->input.key_down)
-		look_up(game);
+	// if (game->input.key_up)
+	// 	look_down(game);
+	// if (game->input.key_down)
+	// 	look_up(game);
 }
 
 int	render_loop(void *param)

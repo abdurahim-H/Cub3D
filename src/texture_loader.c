@@ -118,43 +118,56 @@ t_rgb	get_pixel_color(t_img *img, int x, int y)
 	return (color);
 }
 
-void	draw_textured_line(t_game *game, int x, t_draw_bounds bounds, t_raycast *ray)
+void draw_textured_line(t_game *game, int x, t_draw_bounds bounds, t_raycast *ray)
 {
-	t_img *texture;
-	int tex_x, tex_y;
-	int y;
-	double step, tex_pos;
-	int line_height;
-	t_rgb color;
-		
-	texture = get_wall_texture(game, ray);
-	tex_x = (int)(ray->wall_x * 64);
-	if (tex_x < 0)
-		tex_x = 0;
-	if (tex_x >= 64)
-		tex_x = 63;
-	line_height = bounds.end - bounds.start;
-	step = 64.0 / (double)line_height;
-	tex_pos = 0;
-	if (bounds.start < 0)
-		tex_pos = step * -bounds.start;
-	y = bounds.start;
-	while (y < bounds.end)
-	{
-		if (y >= 0 && y < game->config->height)
-		{
-			tex_y = (int)tex_pos & 63;
-			color = get_pixel_color(texture, tex_x, tex_y);
-			if (ray->side == 1)
-			{
-				color.r = color.r * 0.7;
-				color.g = color.g * 0.7;
-				color.b = color.b * 0.7;
-			}
-			my_mlx_pixel_put(&game->img, x, y, color);
-		}
-		tex_pos += step;
-		y++;
-	}
+    t_img *texture;
+    int tex_x, tex_y;
+    int y;
+    double step, tex_pos;
+    int line_height;
+    t_rgb color;
+    double distance_factor;
+    
+    texture = get_wall_texture(game, ray);
+    tex_x = (int)(ray->wall_x * 64);
+    if (tex_x < 0)
+        tex_x = 0;
+    if (tex_x >= 64)
+        tex_x = 63;
+    line_height = bounds.end - bounds.start;
+    step = 64.0 / (double)line_height;
+    tex_pos = 0;
+    if (bounds.start < 0)
+        tex_pos = step * -bounds.start;
+    
+    // Calculate distance factor for shading (0.0 to 1.0)
+    // Higher values = darker at distance
+    distance_factor = fmin(ray->perp_wall_dist / 10.0, 0.8);
+    
+    y = bounds.start;
+    while (y < bounds.end)
+    {
+        if (y >= 0 && y < game->config->height)
+        {
+            tex_y = (int)tex_pos & 63;
+            color = get_pixel_color(texture, tex_x, tex_y);
+            
+            // Apply side-based shading (existing code)
+            if (ray->side == 1)
+            {
+                color.r = color.r * 0.7;
+                color.g = color.g * 0.7;
+                color.b = color.b * 0.7;
+            }
+            
+            // Apply distance-based shading (new code)
+            color.r = color.r * (1.0 - distance_factor);
+            color.g = color.g * (1.0 - distance_factor);
+            color.b = color.b * (1.0 - distance_factor);
+            
+            my_mlx_pixel_put(&game->img, x, y, color);
+        }
+        tex_pos += step;
+        y++;
+    }
 }
-
