@@ -7,6 +7,7 @@ cub3D
 # Ignore build directories
 build/
 bin/
+Photos/
 
 # Ignore editor and IDE folders
 .vscode/
